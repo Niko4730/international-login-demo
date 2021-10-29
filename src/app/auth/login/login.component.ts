@@ -29,7 +29,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     let loginInfo = this.loginForm.value as LoginUser;
-    this._auth.login(loginInfo);
+    this._auth.login(loginInfo)
+    .then(token => {
+      console.log('token', token);
+    });
     console.log('loginInfo', loginInfo)
   }
 }
