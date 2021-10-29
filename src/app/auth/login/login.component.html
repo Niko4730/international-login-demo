@@ -25,12 +25,6 @@
     <div *ngIf="password.errors?.required">
       Password is required.
     </div>
-    <div *ngIf="password.errors?.minlength">
-      Password must be at least 3 characters long.
-    </div>
-    <div *ngIf="password.errors?.forbiddenPassword">
-      Password cannot be Bob.
-    </div>
   </div>
 
   <button type="submit"

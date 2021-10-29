@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {LoginUser} from "../shared/login-user.model";
+import {AuthService} from "../shared/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -18,16 +20,16 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', Validators.required),
   });
 
-  constructor() { }
+  constructor(private _auth: AuthService) {}
 
   ngOnInit(): void {
   }
-
   get username(){ return this.loginForm.get('username');}
   get password(){return this.loginForm.get('password')}
 
   login() {
-    let loginInfo = this.loginForm.value;
+    let loginInfo = this.loginForm.value as LoginUser;
+    this._auth.login(loginInfo);
     console.log('loginInfo', loginInfo)
   }
 }
