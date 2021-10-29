@@ -32,6 +32,9 @@ export class LoginComponent implements OnInit {
     this._auth.login(loginInfo)
     .then(token => {
       console.log('token', token);
+    })
+    .catch(err => {
+      console.error('err', err);
     });
     console.log('loginInfo', loginInfo)
   }
