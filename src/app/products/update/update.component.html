@@ -1,0 +1,5 @@
+<form [formGroup]="productForm" (ngSubmit)="update()">
+  <label for="product-name">Name:</label>
+  <input id="product-name" type="text" formControlName="name">
+  <button type="submit" [disabled]="!productForm.valid">Update </button>
+</form>
