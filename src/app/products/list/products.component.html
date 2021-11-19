@@ -1,6 +1,7 @@
 <h1>Products</h1>
+<a routerLink="create" class="btn btn-sm btn-primary">Create New Product</a>
 <ul *ngIf="$products | async as productsList">
   <li *ngFor="let product of productsList.list">
-    Id: {{product.id}} - Name: {{product.name}}
+    #{{ product.id }} - Name: {{ product.name }} - <a routerLink="details/{{ product.id }}">Details</a> - <a routerLink="update/{{ product.id}}">Edit</a> - <a routerLink="delete/{{ product.id }}">Delete</a>
   </li>
 </ul>
