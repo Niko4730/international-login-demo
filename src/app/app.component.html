@@ -1,4 +1,21 @@
-<a routerLink = "auth/login" class="space">Login</a>
-<a routerLink = "products" class="space">Products</a>
-<router-outlet></router-outlet>
+<div class="container">
 
+  <div style="width: 100%">
+    <a routerLink="/" class="ost">Home</a>
+    <div *ngIf="profile$ | async as profile else login" style="float: right">
+      <span class="ost">Welcome {{profile.name}}</span>
+
+      <a
+        (click)="logout()"
+        class="float-right">Logout</a>
+    </div>
+    <ng-template #login >
+      <a
+        routerLink="auth/login"
+        class="float-right">Login</a>
+    </ng-template>
+
+  </div>
+
+<router-outlet></router-outlet>
+</div>

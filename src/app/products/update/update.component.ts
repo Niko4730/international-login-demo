@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import {ProductsService} from "../shared/products.service";
 import {Product} from "../shared/product.model";
+import {Observable} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -10,37 +11,35 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./update.component.scss']
 })
 export class UpdateComponent implements OnInit {
-  productForm = new FormGroup({
-    name: new FormControl('', [
-      Validators.required
-    ])
-  })
-  productToUpdate: Product | undefined;
+  private selectedId: number | undefined;
+  public selectedProduct: Product | undefined;
 
-  constructor(
-    private _activated: ActivatedRoute,
-    private _productService: ProductsService,
-    private _router: Router) {}
+  updateForm = new FormGroup( {
+    id: new FormControl({ disabled: true }),
+    name: new FormControl('', Validators.required)
+  });
+
+  constructor(private _route : ActivatedRoute, private _router : Router, private _productService : ProductsService) { }
+
+  get name() { return this.updateForm.get('username'); }
 
   ngOnInit(): void {
-    let id = this._activated.snapshot.paramMap.get('id');
-    if(id) {
-      this._productService.getProduct(+id)
-      .subscribe(product => {
-        this.productToUpdate = product;
-        this.productForm.patchValue(product);
-      });
-      }
-    }
+    this.selectedId = Number(this._route.snapshot.paramMap.get('id'));
 
-  update() {
-    if (this.productToUpdate) {
-      let product = this.productForm.value as Product;
-      product.id = this.productToUpdate.id;
-      this._productService.update(product)
-        .subscribe(product => {
-          this._router.navigateByUrl('products');
-        });
+    this._productService.getProduct(this.selectedId).subscribe(product => {
+      this.selectedProduct = product;
+      this.updateForm.patchValue(product);
+    });
+  }
+
+  doUpdate() {
+    if(this.selectedProduct) {
+      let product = this.updateForm.value as Product;
+      product.id = this.selectedProduct.id;
+
+      this._productService.updateProduct(product).subscribe(product => {
+        this._router.navigateByUrl('/').then(r => {});
+      });
     }
   }
 }

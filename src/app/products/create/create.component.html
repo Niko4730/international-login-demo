@@ -1,7 +1,4 @@
-<form [formGroup]="updateForm" (ngSubmit)="doUpdate()">
-  <label for="id">Product ID: </label><br />
-  <input [readOnly]="true" id="id" type="text" formControlName="id">
-  <br />
+<form [formGroup]="createForm" (ngSubmit)="doCreate()">
   <label for="name">Product Name: </label><br />
   <input id="name" type="text" formControlName="name">
 
@@ -19,5 +16,5 @@
 
   <button type="submit"
           class="btn btn-primary"
-          [disabled]="!updateForm.valid">Save</button>
+          [disabled]="!createForm.valid">Save</button>
 </form>

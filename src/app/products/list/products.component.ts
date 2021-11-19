@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../auth/shared/auth.service";
 import {ProductsService} from "../shared/products.service";
 import {Observable} from "rxjs";
 import {Product} from "../shared/product.model";
@@ -13,10 +12,10 @@ import {ProductList} from "../shared/product-list.model";
 export class ProductsComponent implements OnInit {
   $products: Observable<ProductList> | undefined;
 
-  constructor(private _productsService: ProductsService) { }
+  constructor(private _service : ProductsService) { }
 
   ngOnInit(): void {
-    this.$products = this._productsService.getProducts();
+    this.$products = this._service.getProducts();
   }
 
 }

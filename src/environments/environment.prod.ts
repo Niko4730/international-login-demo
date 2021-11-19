@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'https://detvirker.dk/api'
+  api: 'https://osteglaede.dk/api'
 };
